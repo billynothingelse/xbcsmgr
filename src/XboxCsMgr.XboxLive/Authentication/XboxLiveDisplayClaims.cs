@@ -1,0 +1,28 @@
+﻿using Newtonsoft.Json;
+
+namespace XboxCsMgr.XboxLive.Authentication
+{
+    public class XboxLiveUserOptions
+    {
+        [JsonProperty("agg")]
+        public string AgeGate { get; set; }
+
+        [JsonProperty("gtg")]
+        public string Gamertag { get; set; }
+
+        [JsonProperty("uhs")]
+        public string UserHash { get; set; }
+
+        [JsonProperty("prv")]
+        public string Privileges { get; set; }
+
+        [JsonProperty("xid")]
+        public long XboxUserId { get; set; }
+    }
+
+    public class XboxLiveDisplayClaims
+    {
+        [JsonProperty("xui")]
+        public XboxLiveUserOptions[] XboxUserIdentity { get; set; }
+    }
+}
