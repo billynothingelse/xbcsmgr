@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>xboxcloudicon.ico</ApplicationIcon>
+    <BaseIntermediateOutputPath>..\..\build\XboxCsMgr.Client\</BaseIntermediateOutputPath>
+    <BaseOutputPath>..\..\bin\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="xboxcloudicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Stylet" Version="1.3.6" />
+  </ItemGroup>
+
+</Project>
