@@ -50,7 +50,7 @@ namespace XboxCsMgr.Client
 
                     if (!cred.Key.Contains("XblGrts") && cred.Key.Contains("Utoken"))
                     {
-                        var data = cred.Value.ToString().TrimEnd('X').ToCharArray();
+                        var FixedJson = cred.Value.ToString().TrimEnd('X').ToString();
                         XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
                         if (cachedToken != null && userToken == string.Empty)
                         {
