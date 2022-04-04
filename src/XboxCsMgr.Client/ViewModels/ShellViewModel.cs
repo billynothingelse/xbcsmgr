@@ -1,4 +1,5 @@
 ﻿using Stylet;
+using XboxCsMgr.XboxLive;
 
 namespace XboxCsMgr.Client.ViewModels
 {
@@ -9,9 +10,12 @@ namespace XboxCsMgr.Client.ViewModels
     /// </summary>
     public class ShellViewModel : Screen
     {
-        public ShellViewModel()
-        {
+        private readonly IWindowManager _windowManager;
+        private IXboxLiveConfig _xblConfig => AppBootstrapper.XblConfig;
 
+        public ShellViewModel(IWindowManager windowManager)
+        {
+            _windowManager = windowManager;
         }
 
         protected override void OnActivate()

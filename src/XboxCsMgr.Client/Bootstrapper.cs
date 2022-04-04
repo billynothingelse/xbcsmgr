@@ -17,6 +17,11 @@ namespace XboxCsMgr.Client
     {
         public static XboxLiveConfig? XblConfig { get; internal set; }
 
+        protected override void ConfigureIoC(StyletIoC.IStyletIoCBuilder builder)
+        {
+            base.ConfigureIoC(builder);
+        }
+
         protected override async void OnLaunch()
         {
             base.OnLaunch();

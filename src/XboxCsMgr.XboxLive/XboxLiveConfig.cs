@@ -7,7 +7,7 @@ using XboxCsMgr.XboxLive.Authentication;
 
 namespace XboxCsMgr.XboxLive
 {
-    public class XboxLiveConfig
+    public class XboxLiveConfig : IXboxLiveConfig
     {
         /// <summary>
         /// A 'full' XSTS authorized access token
