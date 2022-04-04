@@ -2,6 +2,12 @@
 
 namespace XboxCsMgr.XboxLive.Authentication
 {
+    public class XboxLiveDeviceOptions
+    {
+        [JsonProperty("did")]
+        public string DeviceId { get; set; }
+    }
+
     public class XboxLiveUserOptions
     {
         [JsonProperty("agg")]
@@ -24,5 +30,8 @@ namespace XboxCsMgr.XboxLive.Authentication
     {
         [JsonProperty("xui")]
         public XboxLiveUserOptions[] XboxUserIdentity { get; set; }
+
+        [JsonProperty("xdi")]
+        public XboxLiveDeviceOptions XboxDeviceIdentity { get; set; }
     }
 }

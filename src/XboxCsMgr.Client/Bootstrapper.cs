@@ -39,14 +39,20 @@ namespace XboxCsMgr.Client
                 {
                     if (cred.Key.Contains("Dtoken"))
                     {
-                        var data = (JObject)JsonConvert.DeserializeObject(cred.Value);
-                        deviceToken = data["TokenData"]["Token"].Value<string>();
+                        XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
+                        if (cachedToken != null && deviceToken == string.Empty)
+                        {
+                            deviceToken = cachedToken.TokenData.Token;
+                        }
                     }
 
                     if (cred.Key.Contains("Utoken"))
                     {
-                        var data = (JObject)JsonConvert.DeserializeObject(cred.Value);
-                        userToken = data["TokenData"]["Token"].Value<string>();
+                        XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
+                        if (cachedToken != null && userToken == string.Empty)
+                        {
+                            userToken = cachedToken.TokenData.Token;
+                        }
                     }
                 }
             }

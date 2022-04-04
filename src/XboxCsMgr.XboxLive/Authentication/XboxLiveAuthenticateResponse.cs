@@ -8,11 +8,13 @@ namespace XboxCsMgr.XboxLive.Authentication
 {
     public class XboxLiveAuthenticateResponse<T>
     {
-        public DateTime IssueInstant { get; set; }
+        public string Token { get; set; }
 
         public DateTime NotAfter { get; set; }
 
-        public string Token { get; set; }
+        public DateTime IssueInstant { get; set; }
+
+        public bool ClientAttested { get; set; }
 
         public T DisplayClaims { get; set; }
     }
