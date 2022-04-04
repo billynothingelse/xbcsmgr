@@ -40,8 +40,8 @@ namespace XboxCsMgr.Client
                     if (!cred.Key.Contains("XblGrts") && cred.Key.Contains("Dtoken"))
                     {
                         // Fixes an odd issue where unexpected character will be at the end of the value
-                        var data = cred.Value.ToString().TrimEnd('X').ToCharArray();
-                        XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
+                        var FixedJson = cred.Value.ToString().TrimEnd('X').ToString();
+                        XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(FixedJson);
                         if (cachedToken != null && deviceToken == string.Empty)
                         {
                             deviceToken = cachedToken.TokenData.Token;
