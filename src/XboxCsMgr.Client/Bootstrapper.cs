@@ -9,12 +9,13 @@ using XboxCsMgr.Helpers.Win32;
 using XboxCsMgr.XboxLive;
 using XboxCsMgr.XboxLive.Account;
 using XboxCsMgr.XboxLive.Authentication;
+using XboxCsMgr.XboxLive.TitleHub;
 
 namespace XboxCsMgr.Client
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
-        public static XboxLiveConfig XblConfig { get; internal set; }
+        public static XboxLiveConfig? XblConfig { get; internal set; }
 
         protected override async void OnLaunch()
         {
@@ -52,6 +53,10 @@ namespace XboxCsMgr.Client
                     AccountDetails details = await accountSvc.GetAccountDetailsAsync();
                     Debug.WriteLine("Gamertag: " + details.Gamertag);
                     Debug.WriteLine("Xuid: " + details.OwnerXuid);
+
+                    TitleHubService titleSvc = new TitleHubService(XblConfig);
+                    TitleDecorationResult res = await titleSvc.GetTitleHistoryAsync();
+                    Debug.WriteLine("Titles found: " + res.Titles.Length);
                 }
             }
         }
