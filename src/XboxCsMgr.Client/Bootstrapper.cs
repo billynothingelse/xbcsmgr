@@ -6,12 +6,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using XboxCsMgr.Client.ViewModels;
 using XboxCsMgr.Helpers.Win32;
+using XboxCsMgr.XboxLive;
+using XboxCsMgr.XboxLive.Account;
 using XboxCsMgr.XboxLive.Authentication;
 
 namespace XboxCsMgr.Client
 {
     public class AppBootstrapper : Bootstrapper<ShellViewModel>
     {
+        public static XboxLiveConfig XblConfig { get; internal set; }
+
         protected override async void OnLaunch()
         {
             base.OnLaunch();
@@ -43,8 +47,11 @@ namespace XboxCsMgr.Client
                 var response = await AuthenticateService.AuthenticateXstsAsync(userToken, deviceToken);
                 if (response != null)
                 {
-                    string token = string.Format("XBL3.0 x={0};{1}", response.DisplayClaims.XboxUserIdentity[0].UserHash, response.Token);
-                    Debug.WriteLine("Auth token: {0}", token);
+                    XblConfig = new XboxLiveConfig(response.Token, response.DisplayClaims.XboxUserIdentity[0]);
+                    AccountService accountSvc = new AccountService(XblConfig);
+                    AccountDetails details = await accountSvc.GetAccountDetailsAsync();
+                    Debug.WriteLine("Gamertag: " + details.Gamertag);
+                    Debug.WriteLine("Xuid: " + details.OwnerXuid);
                 }
             }
         }
