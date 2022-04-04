@@ -10,6 +10,19 @@
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
         Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="420"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="AppSidebar" Grid.Row="1" Grid.Column="0" Width="400" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                <ContentControl s:View.Model="{Binding GameView}"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

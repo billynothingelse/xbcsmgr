@@ -4,6 +4,8 @@ using Stylet;
 using StyletIoC;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using XboxCsMgr.Client.ViewModels;
 using XboxCsMgr.Helpers.Win32;
 using XboxCsMgr.XboxLive;
@@ -22,10 +24,8 @@ namespace XboxCsMgr.Client
             base.ConfigureIoC(builder);
         }
 
-        protected override async void OnLaunch()
+        protected async void InitializeXboxLive()
         {
-            base.OnLaunch();
-
             // Lookup current Xbox Live authentication data stored via wincred
             Dictionary<string, string> currentCredentials = CredentialUtil.EnumerateCredentials();
 
@@ -49,21 +49,20 @@ namespace XboxCsMgr.Client
                         userToken = data["TokenData"]["Token"].Value<string>();
                     }
                 }
-
-                var response = await AuthenticateService.AuthenticateXstsAsync(userToken, deviceToken);
-                if (response != null)
-                {
-                    XblConfig = new XboxLiveConfig(response.Token, response.DisplayClaims.XboxUserIdentity[0]);
-                    AccountService accountSvc = new AccountService(XblConfig);
-                    AccountDetails details = await accountSvc.GetAccountDetailsAsync();
-                    Debug.WriteLine("Gamertag: " + details.Gamertag);
-                    Debug.WriteLine("Xuid: " + details.OwnerXuid);
-
-                    TitleHubService titleSvc = new TitleHubService(XblConfig);
-                    TitleDecorationResult res = await titleSvc.GetTitleHistoryAsync();
-                    Debug.WriteLine("Titles found: " + res.Titles.Length);
-                }
             }
+
+            var response = await AuthenticateService.AuthenticateXstsAsync(userToken, deviceToken);
+            if (response != null)
+            {
+                XblConfig = new XboxLiveConfig(response.Token, response.DisplayClaims.XboxUserIdentity[0]);
+            }
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            InitializeXboxLive();
         }
     }
 }

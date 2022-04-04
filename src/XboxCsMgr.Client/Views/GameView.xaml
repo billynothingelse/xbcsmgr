@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="XboxCsMgr.Client.Views.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:titlehub="clr-namespace:XboxCsMgr.XboxLive.TitleHub;assembly=XboxCsMgr.XboxLive"
+             xmlns:local="clr-namespace:XboxCsMgr.Client.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ListBox x:Name="GamesListBox" Grid.Row="1" ItemsSource="{Binding FilteredGameCollection}" SelectedItem="{Binding SelectedTitle}" MouseDoubleClick="{s:Action LoadSelected}"
+                 Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type titlehub:TitleDecoration}">
+                    <Border Name="border" BorderThickness="1" HorizontalAlignment="Stretch" Padding="2" Margin="2">
+                        <Grid HorizontalAlignment="Left" Width="Auto">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding DisplayImage}" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Fill" Width="65" Height="65"/>
+                            <StackPanel Grid.Column="1" Margin="2">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                                <TextBlock Text="TitleId:"/>
+                                <TextBlock Text="{Binding Path=TitleId}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </HierarchicalDataTemplate>
+            </ListBox.Resources>
+        </ListBox>
+    </Grid>
+</UserControl>

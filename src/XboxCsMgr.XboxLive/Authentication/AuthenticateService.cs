@@ -21,7 +21,7 @@ namespace XboxCsMgr.XboxLive.Authentication
         /// <param name="deviceToken"></param>
         /// <param name="titleToken"></param>
         /// <returns>An authenticated XToken</returns>
-        public static async Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateXstsAsync(
+        public async static Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateXstsAsync(
             string userToken, string deviceToken = null, string titleToken = null)
         {
             HttpClient client = new HttpClient();
@@ -47,8 +47,11 @@ namespace XboxCsMgr.XboxLive.Authentication
             request.Headers.Add("x-xbl-contract-version", "1");
             request.Content = new JsonContent(requestBody);
 
-            // todo; handle any bonkening
-            var response = await client.SendAsync(request);
+            // todo; handle any bonkening and fix this
+            // bad blocking but hopefully temporary
+            //var response = await client.SendAsync(request);
+            var task = client.SendAsync(request);
+            var response = task.GetAwaiter().GetResult();
             var data = await response.Content.ReadAsJsonAsync<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>();
             return data;
         }
