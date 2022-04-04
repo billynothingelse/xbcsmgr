@@ -37,8 +37,10 @@ namespace XboxCsMgr.Client
                 // Temporary scratch
                 foreach (var cred in currentCredentials)
                 {
-                    if (cred.Key.Contains("Dtoken"))
+                    if (!cred.Key.Contains("XblGrts") && cred.Key.Contains("Dtoken"))
                     {
+                        // Fixes an odd issue where unexpected character will be at the end of the value
+                        var data = cred.Value.ToString().TrimEnd('X').ToCharArray();
                         XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
                         if (cachedToken != null && deviceToken == string.Empty)
                         {
@@ -46,8 +48,9 @@ namespace XboxCsMgr.Client
                         }
                     }
 
-                    if (cred.Key.Contains("Utoken"))
+                    if (!cred.Key.Contains("XblGrts") && cred.Key.Contains("Utoken"))
                     {
+                        var data = cred.Value.ToString().TrimEnd('X').ToCharArray();
                         XboxLiveToken? cachedToken = JsonConvert.DeserializeObject<XboxLiveToken>(cred.Value);
                         if (cachedToken != null && userToken == string.Empty)
                         {
