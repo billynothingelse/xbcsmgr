@@ -49,5 +49,14 @@ namespace XboxCsMgr.Client.ViewModels
                         _gameCollection.Add(titleDecoration);
             }
         }
+
+        /// <summary>
+        /// Updates the current selected game
+        /// </summary>
+        public void LoadSelected()
+        {
+            if (this.SelectedTitle == null)
+                return;
+        }
     }
 }
