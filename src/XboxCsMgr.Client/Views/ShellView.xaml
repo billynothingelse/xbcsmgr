@@ -23,6 +23,15 @@
             <Grid x:Name="AppSidebar" Grid.Row="1" Grid.Column="0" Width="400" VerticalAlignment="Stretch" HorizontalAlignment="Left">
                 <ContentControl s:View.Model="{Binding GameView}"/>
             </Grid>
+            <Grid x:Name="AppContent" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="220"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ContentControl s:View.Model="{Binding SaveView}"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

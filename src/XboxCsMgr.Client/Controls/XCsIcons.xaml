@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:XboxCsMgr">
+
+    <ControlTemplate x:Key="HierarchyClosedFolder" TargetType="{x:Type ContentControl}">
+        <Canvas Margin="8,2,5,0" Width="15" Height="16">
+            <Path Fill="#252526"
+				  SnapsToDevicePixels="True"
+				  Data="F1 M 0,2 L 0,13 15,13 15,0 7,0 5,2 Z" />
+
+            <Path Fill="#d7ab69"
+				  SnapsToDevicePixels="True"
+				  Data="F1 M 1,3 L 1,12 14,12 14,1 7,1 5,3 6,3 7,2 13,2 13,3 1,3 Z" />
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HierarchySaveFile" TargetType="{x:Type ContentControl}">
+        <Canvas Margin="8,6,4,0" Width="16" Height="16">
+            <Path Fill="#252526"
+				  SnapsToDevicePixels="True"
+				  Data="F1 M 0,1 L 6,1 6,3 8,3 8,0 16,0 16,9 8,9 8,6 6,6 6,8 0,8 Z" />
+
+            <Path Fill="#c4c4c4"
+				  SnapsToDevicePixels="True"
+				  Data="F1 M 1,2 L 5,2 5,7 1,7 1,2 Z
+						M 6,4 L 8,4 8,5 6,5 6,4 Z
+						M 9,1 L 15,1 15,8 9,8 9,1 Z" />
+        </Canvas>
+    </ControlTemplate>
+
+</ResourceDictionary>

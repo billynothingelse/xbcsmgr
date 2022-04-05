@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Stylet;
-using System;
-using System.Collections.Generic;
-using XboxCsMgr.Helpers.Win32;
+using XboxCsMgr.Client.Events;
 using XboxCsMgr.XboxLive;
-using XboxCsMgr.XboxLive.Authentication;
-using XboxCsMgr.XboxLive.Account;
 
 namespace XboxCsMgr.Client.ViewModels
 {
@@ -15,9 +11,10 @@ namespace XboxCsMgr.Client.ViewModels
     /// of the application. It's responsible for containing and managing other
     /// sub-views, etc.
     /// </summary>
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Screen, IHandle<LoadSaveDetailsEvent>
     {
         private readonly IWindowManager _windowManager;
+        private IEventAggregator _events;
         private XboxLiveConfig _xblConfig => AppBootstrapper.XblConfig;
 
         private GameViewModel _gameView;
@@ -27,9 +24,26 @@ namespace XboxCsMgr.Client.ViewModels
             set => SetAndNotify(ref this._gameView, value);
         }
 
-        public ShellViewModel(IWindowManager windowManager)
+        private SaveViewModel _saveView;
+        public SaveViewModel SaveView
+        {
+            get => _saveView;
+            set => SetAndNotify(ref this._saveView, value);
+        }
+
+        public ShellViewModel(IWindowManager windowManager, IEventAggregator events)
         {
             _windowManager = windowManager;
+            _events = events;
+
+            _events.Subscribe(this);
+        }
+
+        public void Handle(LoadSaveDetailsEvent message)
+        {
+            Screen vm;
+            vm = new SaveViewModel(_events, _xblConfig, message.PackageFamilyName, message.ServiceConfigurationId);
+            SaveView = (SaveViewModel)vm;
         }
 
         protected override void OnActivate()
@@ -41,7 +55,7 @@ namespace XboxCsMgr.Client.ViewModels
         {
             base.OnViewLoaded();
 
-            GameView = new GameViewModel(_xblConfig);
+            GameView = new GameViewModel(_events, _xblConfig);
         }
     }
 }

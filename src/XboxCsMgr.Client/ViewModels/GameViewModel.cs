@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using XboxCsMgr.Client.Events;
 using XboxCsMgr.XboxLive;
 using XboxCsMgr.XboxLive.TitleHub;
 
@@ -10,6 +11,7 @@ namespace XboxCsMgr.Client.ViewModels
 {
     public class GameViewModel : Screen
     {
+        private IEventAggregator _events;
         private XboxLiveConfig _xblConfig;
         private TitleHubService _titleHubService;
 
@@ -30,8 +32,9 @@ namespace XboxCsMgr.Client.ViewModels
 
         public TitleDecoration SelectedTitle { get; set; }
 
-        public GameViewModel(XboxLiveConfig xblConfig)
+        public GameViewModel(IEventAggregator events, XboxLiveConfig xblConfig)
         {
+            _events = events;
             _xblConfig = xblConfig;
             _titleHubService = new TitleHubService(_xblConfig);
             _gameCollection = new ObservableCollection<TitleDecoration>();
@@ -57,6 +60,12 @@ namespace XboxCsMgr.Client.ViewModels
         {
             if (this.SelectedTitle == null)
                 return;
+
+            _events.Publish(new LoadSaveDetailsEvent()
+            {
+                ServiceConfigurationId = this.SelectedTitle.ServiceConfigId,
+                PackageFamilyName = this.SelectedTitle.Pfn
+            });
         }
     }
 }
