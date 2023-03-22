@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Stylet;
+﻿using Stylet;
 using XboxCsMgr.Client.Events;
 using XboxCsMgr.XboxLive;
 

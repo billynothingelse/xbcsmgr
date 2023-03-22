@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using XboxCsMgr.XboxLive.TitleStorage;
+﻿using XboxCsMgr.XboxLive.TitleStorage;
 
 namespace XboxCsMgr.Client.ViewModels.Controls
 {

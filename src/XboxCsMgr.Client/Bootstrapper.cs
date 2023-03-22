@@ -1,17 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Stylet;
-using StyletIoC;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using XboxCsMgr.Client.ViewModels;
 using XboxCsMgr.Helpers.Win32;
 using XboxCsMgr.XboxLive;
-using XboxCsMgr.XboxLive.Account;
 using XboxCsMgr.XboxLive.Authentication;
-using XboxCsMgr.XboxLive.TitleHub;
 
 namespace XboxCsMgr.Client
 {

@@ -1,6 +1,4 @@
 ﻿using Stylet;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using XboxCsMgr.Client.ViewModels.Controls;
 using XboxCsMgr.XboxLive;

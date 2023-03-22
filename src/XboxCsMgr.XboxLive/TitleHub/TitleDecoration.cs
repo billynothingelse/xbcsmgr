@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XboxCsMgr.XboxLive.TitleHub
+﻿namespace XboxCsMgr.XboxLive.TitleHub
 {
     public class TitleDecoration
     {

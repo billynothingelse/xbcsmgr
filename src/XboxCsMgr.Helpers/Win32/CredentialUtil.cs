@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
-using Microsoft.Win32.SafeHandles;
 
 namespace XboxCsMgr.Helpers.Win32
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XboxCsMgr.XboxLive.TitleStorage
+﻿namespace XboxCsMgr.XboxLive.TitleStorage
 {
     public class TitleStorageAtomMetadata
     {
