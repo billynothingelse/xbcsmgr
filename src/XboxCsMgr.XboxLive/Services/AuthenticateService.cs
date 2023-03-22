@@ -4,8 +4,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
 using XboxCsMgr.Helpers.Serialization;
+using XboxCsMgr.XboxLive.Model.Auth;
 
-namespace XboxCsMgr.XboxLive.Authentication
+namespace XboxCsMgr.XboxLive.Services
 {
     /// <summary>
     /// Provide the multiple stages of Xbox Live authentication

@@ -1,4 +1,4 @@
-﻿using XboxCsMgr.XboxLive.TitleStorage;
+﻿using XboxCsMgr.XboxLive.Model.TitleStorage;
 
 namespace XboxCsMgr.Client.ViewModels.Controls
 {

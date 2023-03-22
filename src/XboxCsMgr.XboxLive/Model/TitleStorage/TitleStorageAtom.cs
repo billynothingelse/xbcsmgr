@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XboxCsMgr.XboxLive.TitleStorage
+namespace XboxCsMgr.XboxLive.Model.TitleStorage
 {
     public class TitleStorageAtom
     {

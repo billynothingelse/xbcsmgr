@@ -4,8 +4,9 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
+using XboxCsMgr.XboxLive.Model.Account;
 
-namespace XboxCsMgr.XboxLive.Account
+namespace XboxCsMgr.XboxLive.Services
 {
     public class AccountService : XboxLiveService
     {

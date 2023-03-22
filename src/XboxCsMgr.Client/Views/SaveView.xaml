@@ -8,7 +8,7 @@
              xmlns:converters="clr-namespace:XboxCsMgr.Client.Converters"
              xmlns:vmc="clr-namespace:XboxCsMgr.Client.ViewModels.Controls"
              xmlns:local="clr-namespace:XboxCsMgr.Client.Views"
-             xmlns:titlestorage="clr-namespace:XboxCsMgr.XboxLive.TitleStorage;assembly=XboxCsMgr.XboxLive"
+             xmlns:titlestorage="clr-namespace:XboxCsMgr.XboxLive.Model.TitleStorage;assembly=XboxCsMgr.XboxLive"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 

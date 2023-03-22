@@ -1,4 +1,5 @@
-﻿using XboxCsMgr.XboxLive.TitleStorage;
+﻿using XboxCsMgr.XboxLive.Model.TitleStorage;
+using XboxCsMgr.XboxLive.Services;
 
 namespace XboxCsMgr.Client.ViewModels.Controls
 {

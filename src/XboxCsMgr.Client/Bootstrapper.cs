@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using XboxCsMgr.Client.ViewModels;
 using XboxCsMgr.Helpers.Win32;
 using XboxCsMgr.XboxLive;
-using XboxCsMgr.XboxLive.Authentication;
+using XboxCsMgr.XboxLive.Model.Auth;
+using XboxCsMgr.XboxLive.Services;
 
 namespace XboxCsMgr.Client
 {

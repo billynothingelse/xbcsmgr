@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-namespace XboxCsMgr.XboxLive.TitleStorage
+
+namespace XboxCsMgr.XboxLive.Model.TitleStorage
 {
     /// <summary>
     /// Blob data returned from the cloud.

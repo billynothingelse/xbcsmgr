@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
+using XboxCsMgr.XboxLive.Model.TitleHub;
 
-namespace XboxCsMgr.XboxLive.TitleHub
+namespace XboxCsMgr.XboxLive.Services
 {
     public class TitleHubService : XboxLiveService
     {

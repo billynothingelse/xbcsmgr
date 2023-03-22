@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XboxCsMgr.XboxLive.Authentication
+namespace XboxCsMgr.XboxLive.Model.Auth
 {
     public class XboxLiveAuthenticateResponse<T>
     {

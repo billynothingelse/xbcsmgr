@@ -2,7 +2,8 @@
 using System.Collections.ObjectModel;
 using XboxCsMgr.Client.ViewModels.Controls;
 using XboxCsMgr.XboxLive;
-using XboxCsMgr.XboxLive.TitleStorage;
+using XboxCsMgr.XboxLive.Model.TitleStorage;
+using XboxCsMgr.XboxLive.Services;
 
 namespace XboxCsMgr.Client.ViewModels
 {

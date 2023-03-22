@@ -5,8 +5,9 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
 using XboxCsMgr.Helpers.Serialization;
+using XboxCsMgr.XboxLive.Model.TitleStorage;
 
-namespace XboxCsMgr.XboxLive.TitleStorage
+namespace XboxCsMgr.XboxLive.Services
 {
     public class TitleStorageService : XboxLiveService
     {
@@ -162,7 +163,7 @@ namespace XboxCsMgr.XboxLive.TitleStorage
                 $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/atoms/{atom}");
             request.Headers.Add(HttpHeaders);
 
-            string size_body = "{size: " + (size) + "}";
+            string size_body = "{size: " + size + "}";
             request.Content = new StringContent(size_body);
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             request.Content.Headers.ContentLength = size_body.Length;
@@ -248,7 +249,7 @@ namespace XboxCsMgr.XboxLive.TitleStorage
 
             while (currentBlockSize == MaxBlockUploadSize)
             {
-                if ((index + currentBlockSize) > blobBuffer.Length)
+                if (index + currentBlockSize > blobBuffer.Length)
                     currentBlockSize = blobBuffer.Length - index;
 
                 byte[] chunk = new byte[currentBlockSize];
@@ -258,7 +259,7 @@ namespace XboxCsMgr.XboxLive.TitleStorage
                 var base64BlockId = Convert.ToBase64String(BitConverter.GetBytes(blockId));
                 blockList.Add(base64BlockId);
                 var blockUriParam = $"comp=block&blockId={base64BlockId}&";
-                var blobUri = blobDetails.BlobUri.Insert((blobDetails.BlobUri.IndexOf('?') + 1), blockUriParam);
+                var blobUri = blobDetails.BlobUri.Insert(blobDetails.BlobUri.IndexOf('?') + 1, blockUriParam);
 
                 var request = new HttpRequestMessage(HttpMethod.Put, blobUri);
                 request.Headers.Add("Connection", "Keep-Alive");

@@ -1,4 +1,4 @@
-﻿namespace XboxCsMgr.XboxLive.TitleHub
+﻿namespace XboxCsMgr.XboxLive.Model.TitleHub
 {
     public class TitleDecoration
     {

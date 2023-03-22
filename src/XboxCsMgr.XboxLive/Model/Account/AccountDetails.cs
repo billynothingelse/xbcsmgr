@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace XboxCsMgr.XboxLive.Account
+namespace XboxCsMgr.XboxLive.Model.Account
 {
     public class AccountDetails
     {

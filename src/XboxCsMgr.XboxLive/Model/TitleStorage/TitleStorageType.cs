@@ -1,4 +1,4 @@
-﻿namespace XboxCsMgr.XboxLive.TitleStorage
+﻿namespace XboxCsMgr.XboxLive.Model.TitleStorage
 {
     public enum TitleStorageType : int
     {

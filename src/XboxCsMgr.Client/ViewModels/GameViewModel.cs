@@ -5,7 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using XboxCsMgr.Client.Events;
 using XboxCsMgr.XboxLive;
-using XboxCsMgr.XboxLive.TitleHub;
+using XboxCsMgr.XboxLive.Model.TitleHub;
+using XboxCsMgr.XboxLive.Services;
 
 namespace XboxCsMgr.Client.ViewModels
 {
