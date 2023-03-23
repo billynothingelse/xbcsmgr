@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
@@ -12,24 +13,70 @@ namespace XboxCsMgr.XboxLive.Services
     /// Provide the multiple stages of Xbox Live authentication
     /// and service authorization.
     /// </summary>
-    public static class AuthenticateService
+    public class AuthenticateService : XboxLiveService
     {
-        /// <summary>
-        /// Authorizes a user and the optional device and title token(s) to retrieve an
-        /// XToken.
-        /// </summary>
-        /// <param name="userToken"></param>
-        /// <param name="deviceToken"></param>
-        /// <param name="titleToken"></param>
-        /// <returns>An authenticated XToken</returns>
-        public async static Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateXstsAsync(
-            string userToken, string deviceToken = null, string titleToken = null)
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://xsts.auth.xboxlive.com");
+        const string AuthorizeUrl = "https://xsts.auth.xboxlive.com/xsts/authorize";
+        const string DeviceAuthenticateUrl = "https://device.auth.xboxlive.com/device/authenticate";
+        const string TitleAuthenticateUrl = "https://title.auth.xboxlive.com/title/authenticate";
+        const string UserAuthenticateUrl = "https://user.auth.xboxlive.com/user/authenticate";
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "xsts/authorize");
-            var requestBody = new XboxLiveAuthenticateRequest
+        public AuthenticateService(XboxLiveConfig config) : base(config, "https://auth.xboxlive.com")
+        {
+        }
+
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateDeviceToken(string id, string deviceType, string deviceVersion)
+        {
+            return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(DeviceAuthenticateUrl, new XboxLiveAuthenticateRequest
+            {
+                RelyingParty = "http://auth.xboxlive.com",
+                TokenType = "JWT",
+                Properties = new Dictionary<string, object>
+                {
+                    { "AuthMethod", "ProofOfPossession" },
+                    { "Id", "{" + id + "}" },
+                    { "SerialNumber", "{" + NextUUID() + "}"  },
+                    { "DeviceType", deviceType },
+                    { "Version", deviceVersion },
+                    { "ProofKey", Security.ProofKey }
+                }
+            }, "");
+        }
+
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateUser(string accessToken, string? tokenPrefix = "t=")
+        {
+            return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(UserAuthenticateUrl, new XboxLiveAuthenticateRequest
+            {
+                RelyingParty = "http://auth.xboxlive.com",
+                TokenType = "JWT",
+                Properties = new Dictionary<string, object>
+                {
+                    { "AuthMethod", "RPS" },
+                    { "SiteName", "user.auth.xboxlive.com" },
+                    { "RpsTicket", tokenPrefix + accessToken }
+                }
+            }, "");
+        }
+
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateTitle(string accessToken, string deviceToken, string? tokenPrefix = "t=")
+        {
+            return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(TitleAuthenticateUrl, new XboxLiveAuthenticateRequest
+            {
+                RelyingParty = "http://auth.xboxlive.com",
+                TokenType = "JWT",
+                Properties = new Dictionary<string, object>
+                {
+                    { "AuthMethod", "RPS" },
+                    { "SiteName", "user.auth.xboxlive.com" },
+                    { "DeviceToken", deviceToken },
+                    { "RpsTicket", tokenPrefix + accessToken },
+                    { "ProofKey",  Security.ProofKey }
+                }
+            }, "");
+        }
+
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthorizeXsts(string userToken, string deviceToken = null, string titleToken = null)
+        {
+            return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(AuthorizeUrl, new XboxLiveAuthenticateRequest
             {
                 RelyingParty = "http://xboxlive.com",
                 TokenType = "JWT",
@@ -38,23 +85,12 @@ namespace XboxCsMgr.XboxLive.Services
                     { "UserTokens", new string[] { userToken } },
                     { "SandboxId", "RETAIL" }
                 }
-            };
+            }, "");
+        }
 
-            if (deviceToken != null)
-                requestBody.Properties.Add("DeviceToken", deviceToken);
-            if (titleToken != null)
-                requestBody.Properties.Add("TitleToken", titleToken);
-
-            request.Headers.Add("x-xbl-contract-version", "1");
-            request.Content = new JsonContent(requestBody);
-
-            // todo; handle any bonkening and fix this
-            // bad blocking but hopefully temporary
-            //var response = await client.SendAsync(request);
-            var task = client.SendAsync(request);
-            var response = task.GetAwaiter().GetResult();
-            var data = await response.Content.ReadAsJsonAsync<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>();
-            return data;
+        private string NextUUID()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }

@@ -45,13 +45,13 @@ namespace XboxCsMgr.Client.ViewModels
         {
             base.OnViewLoaded();
 
-            TitleDecorationResult result = await _titleHubService.GetTitleHistoryAsync();
-            if (result != null)
-            {
-                foreach (TitleDecoration titleDecoration in result.Titles)
-                    if (!titleDecoration.Devices.Contains("Win32") && !titleDecoration.Devices.Contains("Xbox360"))
-                        _gameCollection.Add(titleDecoration);
-            }
+            //TitleDecorationResult result = await _titleHubService.GetTitleHistoryAsync();
+            //if (result != null)
+            //{
+            //    foreach (TitleDecoration titleDecoration in result.Titles)
+            //        if (!titleDecoration.Devices.Contains("Win32") && !titleDecoration.Devices.Contains("Xbox360"))
+            //            _gameCollection.Add(titleDecoration);
+            //}
         }
 
         /// <summary>

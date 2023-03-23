@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XboxCsMgr.Client", "src\Xbo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XboxCsMgr.XboxLive", "src\XboxCsMgr.XboxLive\XboxCsMgr.XboxLive.csproj", "{7629B040-93ED-46DB-8630-B24AEB25766E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XboxCsMgr.Helpers", "src\XboxCsMgr.Helpers\XboxCsMgr.Helpers.csproj", "{95183C5D-4822-499D-9B43-19C552B75C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XboxCsMgr.Helpers", "src\XboxCsMgr.Helpers\XboxCsMgr.Helpers.csproj", "{95183C5D-4822-499D-9B43-19C552B75C4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E49FA278-609B-4E48-816A-21897E168EC3}"
 	ProjectSection(SolutionItems) = preProject

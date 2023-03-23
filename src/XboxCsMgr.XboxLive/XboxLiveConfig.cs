@@ -16,9 +16,6 @@ namespace XboxCsMgr.XboxLive
 
         public XboxLiveConfig(string token, XboxLiveUserOptions userOptions)
         {
-            if (token == string.Empty || userOptions == null)
-                return;
-
             Token = token;
             UserOptions = userOptions;
         }
