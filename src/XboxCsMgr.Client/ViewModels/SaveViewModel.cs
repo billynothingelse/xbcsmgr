@@ -39,7 +39,7 @@ namespace XboxCsMgr.Client.ViewModels
             get => _saveData;
         }
 
-        public SavedAtomsViewModel SelectedAtom
+        public SavedAtomsViewModel? SelectedAtom
         {
             get;
             set;

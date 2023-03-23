@@ -31,7 +31,7 @@ namespace XboxCsMgr.Client.ViewModels
             }
         }
 
-        public TitleDecoration SelectedTitle { get; set; }
+        public TitleDecoration? SelectedTitle { get; set; }
 
         public GameViewModel(IEventAggregator events, XboxLiveConfig xblConfig)
         {

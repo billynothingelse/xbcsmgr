@@ -11,6 +11,8 @@ namespace XboxCsMgr.Client
         protected override void ConfigureIoC(StyletIoC.IStyletIoCBuilder builder)
         {
             base.ConfigureIoC(builder);
+
+            builder.Bind<IDialogFactory>().ToAbstractFactory();
         }
 
         protected override void OnStart()

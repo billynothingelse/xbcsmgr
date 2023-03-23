@@ -42,7 +42,7 @@ namespace XboxCsMgr.XboxLive.Services
             }, "");
         }
 
-        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateUser(string accessToken, string? tokenPrefix = "t=")
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateUser(string accessToken, string tokenPrefix = "t=")
         {
             return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(UserAuthenticateUrl, new XboxLiveAuthenticateRequest
             {
@@ -57,7 +57,7 @@ namespace XboxCsMgr.XboxLive.Services
             }, "");
         }
 
-        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateTitle(string accessToken, string deviceToken, string? tokenPrefix = "t=")
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateTitle(string accessToken, string deviceToken, string tokenPrefix = "t=")
         {
             return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(TitleAuthenticateUrl, new XboxLiveAuthenticateRequest
             {
@@ -69,7 +69,7 @@ namespace XboxCsMgr.XboxLive.Services
                     { "SiteName", "user.auth.xboxlive.com" },
                     { "DeviceToken", deviceToken },
                     { "RpsTicket", tokenPrefix + accessToken },
-                    { "ProofKey",  Security.ProofKey }
+                    //{ "ProofKey",  Security.ProofKey }
                 }
             }, "");
         }
