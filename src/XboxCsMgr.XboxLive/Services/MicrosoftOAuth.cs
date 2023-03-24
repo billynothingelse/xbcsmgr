@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using XboxCsMgr.XboxLive.Exceptions;
-using XboxCsMgr.XboxLive.Model.Auth;
+using XboxCsMgr.XboxLive.Model.Authentication;
 
 // https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
 // https://docs.microsoft.com/en-us/advertising/guides/authentication-oauth

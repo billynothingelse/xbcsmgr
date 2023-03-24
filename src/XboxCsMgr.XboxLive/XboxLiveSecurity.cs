@@ -5,7 +5,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
-using XboxCsMgr.XboxLive.Model.Auth;
+using XboxCsMgr.XboxLive.Model.Authentication;
 
 namespace XboxCsMgr.XboxLive
 {

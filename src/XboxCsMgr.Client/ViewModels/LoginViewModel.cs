@@ -3,7 +3,7 @@ using Stylet;
 using System;
 using System.Net.Http;
 using System.Windows.Controls;
-using XboxCsMgr.XboxLive.Model.Auth;
+using XboxCsMgr.XboxLive.Model.Authentication;
 using XboxCsMgr.XboxLive.Services;
 
 namespace XboxCsMgr.Client.ViewModels

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace XboxCsMgr.XboxLive.Model.Auth
+namespace XboxCsMgr.XboxLive.Model.Authentication
 {
     public class MicrosoftOAuthResponse
     {

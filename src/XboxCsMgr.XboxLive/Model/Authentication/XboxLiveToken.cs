@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace XboxCsMgr.XboxLive.Model.Auth
+namespace XboxCsMgr.XboxLive.Model.Authentication
 {
     public class XboxLiveToken
     {

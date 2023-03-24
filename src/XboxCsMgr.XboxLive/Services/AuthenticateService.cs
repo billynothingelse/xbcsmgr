@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using XboxCsMgr.Helpers.Http;
 using XboxCsMgr.Helpers.Serialization;
-using XboxCsMgr.XboxLive.Model.Auth;
+using XboxCsMgr.XboxLive.Model.Authentication;
 
 namespace XboxCsMgr.XboxLive.Services
 {
@@ -24,7 +24,7 @@ namespace XboxCsMgr.XboxLive.Services
         {
         }
 
-        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateDeviceToken(string id, string deviceType, string deviceVersion)
+        public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateDeviceToken(string accessToken, string deviceVersion, string tokenPrefix = "t=")
         {
             return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(DeviceAuthenticateUrl, new XboxLiveAuthenticateRequest
             {
@@ -32,12 +32,11 @@ namespace XboxCsMgr.XboxLive.Services
                 TokenType = "JWT",
                 Properties = new Dictionary<string, object>
                 {
-                    { "AuthMethod", "ProofOfPossession" },
-                    { "Id", "{" + id + "}" },
-                    { "SerialNumber", "{" + NextUUID() + "}"  },
-                    { "DeviceType", deviceType },
-                    { "Version", deviceVersion },
-                    { "ProofKey", Security.ProofKey }
+                    { "AuthMethod", "RPS" },
+                    { "ProofKey", Security.ProofKey },
+                    { "RpsTicket", tokenPrefix + accessToken },
+                    { "SiteName", "user.auth.xboxlive.com" },
+                    { "Version", deviceVersion }
                 }
             }, "");
         }
@@ -68,23 +67,27 @@ namespace XboxCsMgr.XboxLive.Services
                     { "AuthMethod", "RPS" },
                     { "SiteName", "user.auth.xboxlive.com" },
                     { "DeviceToken", deviceToken },
-                    { "RpsTicket", tokenPrefix + accessToken },
-                    //{ "ProofKey",  Security.ProofKey }
+                    { "RpsTicket", tokenPrefix + accessToken }
                 }
             }, "");
         }
 
         public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthorizeXsts(string userToken, string deviceToken = null, string titleToken = null)
         {
+            Dictionary<string, object> authProperties = new Dictionary<string, object>()
+            {
+                    { "UserTokens", new string[] { userToken } },
+                    { "SandboxId", "RETAIL" }
+            };
+
+            if (deviceToken != null) authProperties.Add("DeviceToken", deviceToken);
+            if (titleToken != null) authProperties.Add("TitleToken", titleToken);
+
             return SignAndRequest<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>>(AuthorizeUrl, new XboxLiveAuthenticateRequest
             {
                 RelyingParty = "http://xboxlive.com",
                 TokenType = "JWT",
-                Properties = new Dictionary<string, object>
-                {
-                    { "UserTokens", new string[] { userToken } },
-                    { "SandboxId", "RETAIL" }
-                }
+                Properties = authProperties
             }, "");
         }
 

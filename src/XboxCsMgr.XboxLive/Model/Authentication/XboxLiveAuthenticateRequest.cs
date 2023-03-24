@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace XboxCsMgr.XboxLive.Model.Auth
+namespace XboxCsMgr.XboxLive.Model.Authentication
 {
     public class XboxLiveAuthenticateRequest
     {

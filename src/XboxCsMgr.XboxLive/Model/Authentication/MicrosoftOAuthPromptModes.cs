@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace XboxCsMgr.XboxLive.Model.Auth
+namespace XboxCsMgr.XboxLive.Model.Authentication
 {
     public class MicrosoftOAuthPromptModes
     {

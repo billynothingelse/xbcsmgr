@@ -1,4 +1,4 @@
-﻿using XboxCsMgr.XboxLive.Model.Auth;
+﻿using XboxCsMgr.XboxLive.Model.Authentication;
 
 namespace XboxCsMgr.XboxLive
 {
