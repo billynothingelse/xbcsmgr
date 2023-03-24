@@ -1,29 +1,28 @@
 ﻿using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace XboxCsMgr.XboxLive.Model.Authentication
 {
     public class ProofKeyProperties
     {
-        [JsonPropertyName("kid")]
+        [JsonProperty("kid")]
         public string KeyId { get; set; }
 
-        [JsonPropertyName("kty")]
+        [JsonProperty("kty")]
         public string KeyType { get; set; }
 
-        [JsonPropertyName("alg")]
+        [JsonProperty("alg")]
         public string Algorithm { get; set; }
 
-        [JsonPropertyName("use")]
+        [JsonProperty("use")]
         public string Use { get; set; }
 
-        [JsonPropertyName("crv")]
+        [JsonProperty("crv")]
         public string Curve { get; set; }
 
-        [JsonPropertyName("x")]
+        [JsonProperty("x")]
         public string X { get; set; }
 
-        [JsonPropertyName("y")]
+        [JsonProperty("y")]
         public string Y { get; set; }
     }
 }

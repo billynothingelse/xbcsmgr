@@ -10,6 +10,8 @@ namespace XboxCsMgr.XboxLive.Services
 {
     public class AccountService : XboxLiveService
     {
+        const string AccountDetailsUrl = "https://accounts.xboxlive.com/users/current/profile";
+
         public AccountService(XboxLiveConfig config) : base(config, "https://accounts.xboxlive.com")
         {
         }
@@ -18,13 +20,9 @@ namespace XboxCsMgr.XboxLive.Services
         /// Gets the current authenticated users account information
         /// </summary>
         /// <returns>AccountDetails - Contains a summary of profile information</returns>
-        public async Task<AccountDetails> GetAccountDetailsAsync()
+        public Task<AccountDetails> GetAccountDetails()
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"users/current/profile");
-            request.Headers.Add(HttpHeaders);
-
-            HttpResponseMessage response = await HttpClient.SendAsync(request);
-            return await response.Content.ReadAsJsonAsync<AccountDetails>();
+            return SignAndRequest<AccountDetails>($"users/current/profile", "");
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace XboxCsMgr.XboxLive.Model
 {
     public class XboxLiveErrorResponse
     {
-        [JsonPropertyName("XErr")]
+        [JsonProperty("XErr")]
         public string? XErr { get; set; }
 
-        [JsonPropertyName("Message")]
+        [JsonProperty("Message")]
         public string? Message { get; set; }
 
-        [JsonPropertyName("Redirect")]
+        [JsonProperty("Redirect")]
         public string? Redirect { get; set; }
     }
 }
