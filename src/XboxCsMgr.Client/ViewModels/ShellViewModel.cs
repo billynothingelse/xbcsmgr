@@ -69,21 +69,9 @@ namespace XboxCsMgr.Client.ViewModels
             base.OnActivate();
         }
 
-        protected override async void OnViewLoaded()
+        protected override void OnViewLoaded()
         {
             base.OnViewLoaded();
-
-            if (_xblConfig == null)
-            {
-                var loginDialogVm = this.dialogFactory.CreateLoginDialog();
-                var result = this.windowManager.ShowDialog(loginDialogVm);
-                if (result.GetValueOrDefault())
-                {
-                    var userAuth = await _authService.AuthenticateUser(loginDialogVm.AccessToken);
-                    var deviceAuth = await _authService.AuthenticateDeviceToken(Guid.NewGuid().ToString(), "Win32", "0.0.0");
-                    //var titleAuth = await _authService.AuthenticateTitle(loginDialogVm.AccessToken, deviceAuth.Token);
-                }
-            }
 
             //GameView = new GameViewModel(_events, _xblConfig);
         }
