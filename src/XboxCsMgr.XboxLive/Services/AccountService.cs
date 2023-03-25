@@ -10,10 +10,13 @@ namespace XboxCsMgr.XboxLive.Services
 {
     public class AccountService : XboxLiveService
     {
-        const string AccountDetailsUrl = "https://accounts.xboxlive.com/users/current/profile";
-
         public AccountService(XboxLiveConfig config) : base(config, "https://accounts.xboxlive.com")
         {
+            HttpHeaders = new Dictionary<string, string>()
+            {
+                { "Accept-Language", CultureInfo.CurrentCulture.ToString() },
+                { "x-xbl-contract-version", "2" }
+            };
         }
 
         /// <summary>

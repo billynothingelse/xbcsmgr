@@ -54,7 +54,7 @@ namespace XboxCsMgr.XboxLive
                 token = "";
             var signature = Security.GenerateSignature(uri, token, bodyStr);
             reqMessage.Headers.Add("Signature", signature);
-            reqMessage.Headers.Add("x-xbl-contract-version", "2");
+            reqMessage.Headers.Add(HttpHeaders);
 
             var res = await HttpClient.SendAsync(reqMessage);
             return await HandleResponse<T>(res);
@@ -71,7 +71,7 @@ namespace XboxCsMgr.XboxLive
             if (token == null)
                 token = "";
             reqMessage.Headers.Add("Accept-Language", System.Globalization.CultureInfo.CurrentCulture.ToString());
-            reqMessage.Headers.Add("x-xbl-contract-version", "2");
+            reqMessage.Headers.Add(HttpHeaders);
 
             var res = await HttpClient.SendAsync(reqMessage);
             return await HandleResponse<T>(res);

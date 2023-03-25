@@ -22,6 +22,10 @@ namespace XboxCsMgr.XboxLive.Services
 
         public AuthenticateService(XboxLiveConfig config) : base(config, "https://auth.xboxlive.com")
         {
+            HttpHeaders = new Dictionary<string, string>
+            {
+                { "x-xbl-contract-version", "2" }
+            };
         }
 
         public Task<XboxLiveAuthenticateResponse<XboxLiveDisplayClaims>> AuthenticateDeviceToken(string accessToken, string deviceVersion, string tokenPrefix = "t=")

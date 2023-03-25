@@ -11,6 +11,11 @@ namespace XboxCsMgr.XboxLive.Services
     {
         public TitleHubService(XboxLiveConfig config) : base(config, "https://titlehub.xboxlive.com")
         {
+            HttpHeaders = new Dictionary<string, string>()
+            {
+                { "Accept-Language", System.Globalization.CultureInfo.CurrentCulture.ToString() },
+                { "x-xbl-contract-version", "2" }
+            };
         }
 
         /// <summary>
@@ -19,7 +24,7 @@ namespace XboxCsMgr.XboxLive.Services
         /// <returns>TitleDecoration collection</returns>
         public Task<TitleDecorationResult> GetTitleHistory()
         {
-            return SignAndRequest<TitleDecorationResult>($"users/xuid({Config.UserOptions.XboxUserId})/titles/titlerecord/decoration/titleRecord?maxItems=32&filterTo=isGame", "");
+            return SignAndRequest<TitleDecorationResult>($"users/xuid({Config.UserOptions.XboxUserId})/titles/titlehistory/decoration/scid,image,detail", "");
         }
     }
 }
