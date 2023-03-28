@@ -60,7 +60,7 @@ namespace XboxCsMgr.Client.ViewModels
 
         private async void FetchSaveMetadata()
         {
-            TitleStorageBlobMetadataResult blobMetadataResult = await _storageService.GetBlobMetadataAsync();
+            TitleStorageBlobMetadataResult blobMetadataResult = await _storageService.GetBlobMetadata();
             if (blobMetadataResult != null && blobMetadataResult.Blobs != null)
             {
                 foreach (TitleStorageBlobMetadata entry in blobMetadataResult.Blobs)

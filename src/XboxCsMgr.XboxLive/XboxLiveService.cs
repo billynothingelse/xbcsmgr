@@ -60,12 +60,12 @@ namespace XboxCsMgr.XboxLive
             return await HandleResponse<T>(res);
         }
 
-        public async Task<T> SignAndRequest<T>(string uri, string token)
+        public async Task<T> SignAndRequest<T>(string uri, string token, string method = "GET")
         {
             var reqMessage = new HttpRequestMessage
             {
                 RequestUri = new Uri(uri, UriKind.RelativeOrAbsolute),
-                Method = HttpMethod.Get
+                Method = new HttpMethod(method)
             };
 
             if (token == null)

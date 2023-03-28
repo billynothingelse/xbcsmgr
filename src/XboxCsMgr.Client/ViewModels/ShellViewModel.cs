@@ -23,7 +23,6 @@ namespace XboxCsMgr.Client.ViewModels
 
         private IEventAggregator _events;
         private XboxLiveConfig _xblConfig => AppBootstrapper.XblConfig;
-        private AuthenticateService _authService;
 
         private GameViewModel? _gameView;
         public GameViewModel? GameView
@@ -53,8 +52,6 @@ namespace XboxCsMgr.Client.ViewModels
             _events = events;
 
             _events.Subscribe(this);
-
-            _authService = new AuthenticateService(_xblConfig);
         }
 
         public void Handle(LoadSaveDetailsEvent message)
@@ -73,7 +70,7 @@ namespace XboxCsMgr.Client.ViewModels
         {
             base.OnViewLoaded();
 
-            //GameView = new GameViewModel(_events, _xblConfig);
+            GameView = new GameViewModel(_events, _xblConfig);
         }
     }
 }

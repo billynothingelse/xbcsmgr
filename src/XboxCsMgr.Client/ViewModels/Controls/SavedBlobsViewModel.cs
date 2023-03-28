@@ -26,7 +26,7 @@ namespace XboxCsMgr.Client.ViewModels.Controls
 
         protected override async void LoadChildren()
         {
-            TitleStorageAtomMetadataResult atoms = await _storageService.GetBlobAtomsAsync(_blobMetadata.FileName);
+            TitleStorageAtomMetadataResult atoms = await _storageService.GetBlobAtoms(_blobMetadata.FileName);
             foreach (string atom in atoms.Atoms.Keys)
                 base.Children.Add(new SavedAtomsViewModel(null, atom, atoms.Atoms[atom], this));
         }

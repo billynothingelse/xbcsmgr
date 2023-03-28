@@ -46,14 +46,13 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="serviceConfigId"></param>
         /// <param name="pfn"></param>
         /// <returns></returns>
-        public async Task<TitleStorageQuota> SetLock()
+        public Task<TitleStorageQuota> AssignLock()
         {
-            var request = new HttpRequestMessage(HttpMethod.Put,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/lock?breakLock=true");
-            request.Headers.Add(HttpHeaders);
-
-            HttpResponseMessage responseMessage = await HttpClient.SendAsync(request);
-            return await responseMessage.Content.ReadAsJsonAsync<TitleStorageQuota>();
+            // PUT
+            return SignAndRequest<TitleStorageQuota>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/lock?breakLock=true",
+                "",
+                "PUT");
         }
 
         /// <summary>
@@ -63,16 +62,13 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="serviceConfigId"></param>
         /// <param name="pfn"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteLock()
+        public Task<bool> ReleaseLock()
         {
-            var request = new HttpRequestMessage(HttpMethod.Delete,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/lock");
-            request.Headers.Add(HttpHeaders);
-
-            HttpResponseMessage responseMessage = await HttpClient.SendAsync(request);
-            if (!responseMessage.IsSuccessStatusCode)
-                return false;
-            return true;
+            // DELETE
+            return SignAndRequest<bool>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/lock?breakLock=true",
+                "",
+                "DELETE");
         }
 
         /// <summary>
@@ -82,17 +78,10 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="serviceConfigId"></param>
         /// <param name="pfn"></param>
         /// <returns></returns>
-        public async Task<TitleStorageBlobMetadataResult> GetBlobMetadataAsync()
+        public Task<TitleStorageBlobMetadataResult> GetBlobMetadata()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}");
-            request.Headers.Add(HttpHeaders);
-
-            var response = await HttpClient.SendAsync(request);
-            if (!response.IsSuccessStatusCode)
-            {
-
-            }
-            return await response.Content.ReadAsJsonAsync<TitleStorageBlobMetadataResult>();
+            return SignAndRequest<TitleStorageBlobMetadataResult>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}", "");
         }
 
         /// <summary>
@@ -103,14 +92,11 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="pfn"></param>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public async Task<TitleStorageAtomMetadataResult> GetBlobAtomsAsync(string filename)
+        public Task<TitleStorageAtomMetadataResult> GetBlobAtoms(string filename)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/{filename}");
-            request.Headers.Add(HttpHeaders);
-
-            HttpResponseMessage responseMessage = await HttpClient.SendAsync(request);
-            return await responseMessage.Content.ReadAsJsonAsync<TitleStorageAtomMetadataResult>();
+            return SignAndRequest<TitleStorageAtomMetadataResult>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/{filename}",
+                "");
         }
 
         /// <summary>
@@ -157,19 +143,14 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="atom"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public async Task<TitleStorageBlobUpdate> GetBlobUriAsync(string atom, int size)
+        public Task<TitleStorageBlobUpdate> GetBlobUri(string atom, int size)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/atoms/{atom}");
-            request.Headers.Add(HttpHeaders);
+            string requestBody = "{size: " + size + "}";
 
-            string size_body = "{size: " + size + "}";
-            request.Content = new StringContent(size_body);
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            request.Content.Headers.ContentLength = size_body.Length;
-
-            HttpResponseMessage responseMessage = await HttpClient.SendAsync(request);
-            return await responseMessage.Content.ReadAsJsonAsync<TitleStorageBlobUpdate>();
+            return SignAndRequest<TitleStorageBlobUpdate>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/atoms/{atom}",
+                new StringContent(requestBody),
+                "");
         }
 
         /// <summary>
@@ -182,20 +163,15 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="blockIds"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> CommitAtomAsync(string atom, string[] blockIds, int size)
+        public Task<HttpResponseMessage> CommitAtom(string atom, string[] blockIds, int size)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/atoms/{atom}?commit=true");
-            request.Headers.Add(HttpHeaders);
-
-            TitleStorageAtom atomDetails = new TitleStorageAtom();
-            atomDetails.BlockIds = blockIds;
-            atomDetails.Size = size;
-
-            request.Content = new JsonContent(atomDetails);
-
-            HttpResponseMessage responseMessage = await HttpClient.SendAsync(request);
-            return await responseMessage.Content.ReadAsJsonAsync<HttpResponseMessage>();
+            return SignAndRequest<HttpResponseMessage>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/atoms/{atom}?commit=true",
+                new TitleStorageAtom
+                {
+                    BlockIds = blockIds,
+                    Size = size
+                }, "");
         }
 
         /// <summary>
@@ -207,19 +183,14 @@ namespace XboxCsMgr.XboxLive.Services
         /// <param name="blobAtom"></param>
         /// <param name="displayName"></param>
         /// <returns></returns>
-        public async Task<TitleStorageQuota> UpdateBlobAsync(TitleStorageBlobAtom[] blobAtom, string displayName)
+        public Task<TitleStorageQuota> UpdateBlob(TitleStorageBlobAtom[] blobAtom, string displayName)
         {
             displayName = displayName.Split(',')[0].Trim();
-            var request = new HttpRequestMessage(HttpMethod.Put,
-                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/savedgames/{displayName}?clientFileTime={DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz")}&displayName={displayName}");
-            request.Headers.Add(HttpHeaders);
+            string clientFileTime = DateTime.Now.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
 
-            TitleStorageBlobAtomUpdate blobAtomArray = new TitleStorageBlobAtomUpdate(new List<TitleStorageBlobAtom>(blobAtom));
-
-            request.Content = new JsonContent(blobAtomArray);
-
-            var response = await HttpClient.SendAsync(request);
-            return await response.Content.ReadAsJsonAsync<TitleStorageQuota>();
+            return SignAndRequest<TitleStorageQuota>(
+                $"connectedstorage/users/xuid({Config.UserOptions.XboxUserId})/scids/{ServiceConfigurationId}/savedgames/{displayName}?clientFileTime={clientFileTime}&displayName={displayName}",
+                new TitleStorageBlobAtomUpdate(new List<TitleStorageBlobAtom>(blobAtom)), "");
         }
 
         /// <summary>
@@ -237,7 +208,7 @@ namespace XboxCsMgr.XboxLive.Services
             if (blobMetadata == null && blobMetadata == null)
                 return null;
 
-            var blobDetails = await GetBlobUriAsync(atomUuid, blobBuffer.Length);
+            var blobDetails = await GetBlobUri(atomUuid, blobBuffer.Length);
             if (blobDetails.BlobUri == string.Empty)
                 return null;
 
@@ -274,7 +245,7 @@ namespace XboxCsMgr.XboxLive.Services
                 blockId++;
             }
 
-            var commitResponse = await CommitAtomAsync(atomUuid, blockList.ToArray(), blobBuffer.Length);
+            var commitResponse = await CommitAtom(atomUuid, blockList.ToArray(), blobBuffer.Length);
 
             return commitResponse;
         }
