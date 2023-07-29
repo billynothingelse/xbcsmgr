@@ -30,8 +30,6 @@ namespace XboxCsMgr.Client
 
         protected override async void OnStart()
         {
-            base.OnStart();
-
             authenticateService = new AuthenticateService(XblConfig);
 
             LoadXblTokenCredentials();
@@ -40,7 +38,11 @@ namespace XboxCsMgr.Client
             if (result != null)
             {
                 Debug.WriteLine("Authorized! Token: " + result.Token);
+                XblConfig = new XboxLiveConfig(result.Token, result.DisplayClaims.XboxUserIdentity[0]);
+                this.RootViewModel.OnAuthComplete();
             }
+
+            base.OnStart();
         }
 
         private void LoadXblTokenCredentials()

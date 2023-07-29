@@ -22,7 +22,7 @@ namespace XboxCsMgr.Client.ViewModels
         private readonly IDialogFactory dialogFactory;
 
         private IEventAggregator _events;
-        private XboxLiveConfig _xblConfig => AppBootstrapper.XblConfig;
+        private XboxLiveConfig? _xblConfig => AppBootstrapper.XblConfig;
 
         private GameViewModel? _gameView;
         public GameViewModel? GameView
@@ -60,16 +60,12 @@ namespace XboxCsMgr.Client.ViewModels
             vm = new SaveViewModel(_events, _xblConfig, message.PackageFamilyName, message.ServiceConfigurationId);
             SaveView = (SaveViewModel)vm;
         }
-
-        protected override void OnActivate()
+        
+        /// <summary>
+        /// Called from the boostrapper once authentication is ready
+        /// </summary>
+        public void OnAuthComplete()
         {
-            base.OnActivate();
-        }
-
-        protected override void OnViewLoaded()
-        {
-            base.OnViewLoaded();
-
             GameView = new GameViewModel(_events, _xblConfig);
         }
     }
