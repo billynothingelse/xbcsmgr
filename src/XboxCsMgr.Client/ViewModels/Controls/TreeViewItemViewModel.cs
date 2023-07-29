@@ -15,8 +15,8 @@ namespace XboxCsMgr.Client.ViewModels.Controls
 
         static readonly TreeViewItemViewModel DummyChild = new TreeViewItemViewModel();
 
-        readonly ObservableCollection<TreeViewItemViewModel> _children;
-        readonly TreeViewItemViewModel _parent;
+        readonly ObservableCollection<TreeViewItemViewModel?> _children;
+        readonly TreeViewItemViewModel? _parent;
 
         bool _isExpanded;
         bool _isSelected;
@@ -25,11 +25,11 @@ namespace XboxCsMgr.Client.ViewModels.Controls
 
         #region Constructors
 
-        protected TreeViewItemViewModel(TreeViewItemViewModel parent, bool lazyLoadChildren)
+        protected TreeViewItemViewModel(TreeViewItemViewModel? parent, bool lazyLoadChildren)
         {
             _parent = parent;
 
-            _children = new ObservableCollection<TreeViewItemViewModel>();
+            _children = new ObservableCollection<TreeViewItemViewModel?>();
 
             if (lazyLoadChildren)
                 _children.Add(DummyChild);
@@ -146,7 +146,7 @@ namespace XboxCsMgr.Client.ViewModels.Controls
 
         #region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

@@ -15,7 +15,7 @@ namespace XboxCsMgr.XboxLive
         internal readonly ECPublicKeyParameters publicKey;
         internal readonly ECPrivateKeyParameters privateKey;
 
-        private ProofKeyProperties? proofKey;
+        private ProofKeyProperties proofKey;
         public ProofKeyProperties ProofKey
         {
             get

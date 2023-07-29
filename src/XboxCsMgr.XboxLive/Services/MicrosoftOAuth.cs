@@ -38,9 +38,9 @@ namespace XboxCsMgr.XboxLive.Services
         public string ClientId { get; }
         public string Scope { get; }
 
-        protected Dictionary<string, string?> createQueriesForAuth(string redirectUrl = OAuthDesktop)
+        protected Dictionary<string, string> createQueriesForAuth(string redirectUrl = OAuthDesktop)
         {
-            return new Dictionary<string, string?>()
+            return new Dictionary<string, string>()
             {
                 { "client_id", ClientId },
                 { "grant_type", "authorization_code" },
@@ -192,7 +192,7 @@ namespace XboxCsMgr.XboxLive.Services
             return "https://login.microsoftonline.com/consumer/oauth2/v2.0/logout";
         }
 
-        public static string GetQueryString(Dictionary<string, string?> queries)
+        public static string GetQueryString(Dictionary<string, string> queries)
         {
             return string.Join("&",
                 queries.Select(x => $"{x.Key}={HttpUtility.UrlEncode(x.Value)}"));

@@ -168,7 +168,7 @@ namespace XboxCsMgr
         XO_E_CONTENT_NOT_AUTHORIZED = (uint)0x8015DC1C;
 
 
-        public static string? TryConvertToHexErrorCode(string? errorCode)
+        public static string TryConvertToHexErrorCode(string errorCode)
         {
             try
             {

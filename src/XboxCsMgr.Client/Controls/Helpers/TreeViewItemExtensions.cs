@@ -14,7 +14,7 @@ namespace XboxCsMgr.Client.Controls.Helpers
 			return 0;
 		}
 
-		private static TreeViewItem GetParent(DependencyObject item)
+		private static TreeViewItem? GetParent(DependencyObject item)
 		{
 			var parent = VisualTreeHelper.GetParent(item);
 			while (!(parent is TreeViewItem || parent is TreeView))
