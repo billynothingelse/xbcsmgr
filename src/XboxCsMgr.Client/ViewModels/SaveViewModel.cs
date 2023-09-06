@@ -1,5 +1,6 @@
 ﻿using Stylet;
 using System.Collections.ObjectModel;
+using System.IO;
 using XboxCsMgr.Client.ViewModels.Controls;
 using XboxCsMgr.XboxLive;
 using XboxCsMgr.XboxLive.Model.TitleStorage;
@@ -73,6 +74,49 @@ namespace XboxCsMgr.Client.ViewModels
         public void SelectedItemChanged(object args)
         {
             SelectedAtom = args as SavedAtomsViewModel;
+        }
+
+        public async void Download()
+        {
+            if (SelectedAtom == null)
+                return;
+
+            string atom = SelectedAtom.AtomValue;
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = SelectedAtom.AtomName;
+
+            bool? res = dlg.ShowDialog();
+            if (res == true)
+            {
+                byte[] atomData = await _storageService.DownloadAtomAsync(atom);
+                await File.WriteAllBytesAsync(dlg.FileName, atomData);
+            }
+        }
+
+        public async void Upload()
+        {
+            if (SelectedAtom == null)
+                return;
+
+            // Remove the file type, just need the UUID
+            string atom = SelectedAtom.AtomValue.Substring(0, SelectedAtom.AtomValue.IndexOf(','));
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = SelectedAtom.AtomName;
+
+            bool? res = dlg.ShowDialog();
+            if (res == true)
+            {
+                byte[] atomData = await File.ReadAllBytesAsync(dlg.FileName);
+                try
+                {
+                    var t = await _storageService.UploadBlobAsync(null, atomData, atom);
+                    var e = 1 + 1;
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 }

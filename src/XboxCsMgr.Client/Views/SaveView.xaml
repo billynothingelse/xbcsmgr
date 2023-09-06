@@ -54,6 +54,12 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <ContentControl Template="{Binding Converter={StaticResource HierarchyNodeToIconConverter}}"/>
                             <TextBlock Text="{Binding Path=AtomName}"/>
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Download" Command="{s:Action Download}"/>
+                                    <MenuItem Header="Upload" Command="{s:Action Upload}"/>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>

@@ -45,9 +45,30 @@ namespace XboxCsMgr.XboxLive
 
             var reqMessage = new HttpRequestMessage
             {
-                RequestUri = new Uri(uri),
+                RequestUri = new Uri(uri, UriKind.RelativeOrAbsolute),
                 Method = HttpMethod.Post,
                 Content = new JsonContent(body)
+            };
+
+            if (token == null)
+                token = "";
+            var signature = Security.GenerateSignature(uri, token, bodyStr);
+            reqMessage.Headers.Add("Signature", signature);
+            reqMessage.Headers.Add(HttpHeaders);
+
+            var res = await HttpClient.SendAsync(reqMessage);
+            return await HandleResponse<T>(res);
+        }
+
+        public async Task<T> SignAndRequest<T>(string uri, StringContent body, string token)
+        {
+            var bodyStr = NewtonsoftJsonSerializer.Create(JsonNamingStrategy.Default).Serialize(body);
+
+            var reqMessage = new HttpRequestMessage
+            {
+                RequestUri = new Uri(uri, UriKind.RelativeOrAbsolute),
+                Method = HttpMethod.Post,
+                Content = body
             };
 
             if (token == null)
