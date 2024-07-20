@@ -68,7 +68,7 @@ namespace XboxCsMgr.Client
                     }
                     else if (credential.Key.Contains("Utoken"))
                     {
-                        UserToken = token.TokenData.Token;
+                        if (token.TokenData.Token != "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") UserToken = token.TokenData.Token;
                     }
                 }
             }
